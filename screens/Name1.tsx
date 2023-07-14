@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Text, TextInput,StyleSheet, View, Image, Pressable, Alert } from "react-native";
+import { Text, TextInput,StyleSheet, View, Image, TouchableOpacity, Alert } from "react-native";
 import { useState } from 'react';
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Border } from "./GlobalStyles";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-//import { Avatar, Icon } from 'react-native-elements';
+
 
 
 const Name1 = () => {
@@ -50,6 +50,13 @@ const Name1 = () => {
     setAge(newText);
   };
 
+
+
+
+
+
+
+
   return (
     <LinearGradient
       style={styles.name1}
@@ -91,7 +98,7 @@ what is your name ?`}</Text>
         resizeMode="cover"
         source={require("../assets/group-770.png")}
       /> */}
-      <Pressable
+      <TouchableOpacity
         style={styles.button}
         onPress={() => _storeData()}
       >
@@ -105,10 +112,13 @@ what is your name ?`}</Text>
           />
           <Text style={[styles.getOtp, styles.getOtpFlexBox]}>Continue</Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };
+
+
+
 
 const styles = StyleSheet.create({
   nowTellMeTypo: {

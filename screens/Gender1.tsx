@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, StyleSheet, Image, View, Pressable } from "react-native";
+import { Text, StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Border } from "./GlobalStyles";
@@ -25,7 +25,7 @@ const Gender1 = () => {
         resizeMode="cover"
         source={require("../assets/group-750.png")}
       />
-      <Pressable
+      <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate("Name1")}
       >
@@ -39,7 +39,7 @@ const Gender1 = () => {
           />
           <Text style={[styles.getOtp, styles.maleFlexBox]}>Continue</Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };

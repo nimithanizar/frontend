@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, StyleSheet, View, Image, Pressable } from "react-native";
+import { Text, StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Border } from "./GlobalStyles";
@@ -95,7 +95,7 @@ const Language1 = () => {
           />
         </View>
       </View>
-      <Pressable
+      <TouchableOpacity
         style={[styles.button, styles.hindiPosition]}
         onPress={() => navigation.navigate("Category")}
       >
@@ -109,7 +109,7 @@ const Language1 = () => {
           />
           <Text style={[styles.getOtp, styles.nextTypo]}>Next</Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
       <Text style={[styles.next, styles.nextTypo]}>Next</Text>
     </LinearGradient>
   );

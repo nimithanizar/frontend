@@ -1,19 +1,19 @@
 import * as React from "react";
 import axios from 'axios';
-import { StyleSheet, TextInput,TouchableOpacity, View, Text, Pressable, Alert } from "react-native";
-import OtpInput from 'react-otp-input';
+import { StyleSheet, TextInput,TouchableOpacity, View, Text, Alert } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { Color, Border, FontFamily, FontSize } from "./GlobalStyles";
 import { useState } from 'react';
 import { useEffect } from 'react';
+import OtpInputs from 'react-native-otp-inputs';
 
 
 const Otpverification = (props: any) => {
   const navigation: any = useNavigation();
   const [otp, setOtp] = useState('');
   const [number, setNumber] = useState('');
-  const [code, setCode] = useState('');
+  // const [code, setCode] = useState('');
   // const [message, setMessage] = useState('');
 
 
@@ -34,29 +34,35 @@ const Otpverification = (props: any) => {
 
   useEffect(() => {
     setNumber(props.route.params)
+    console.log('Parameter value:', number);
   }, []);
 
-  console.log('Parameter value:', number);
+  
 
-  const handleOtpChange = (otp: string) => {
-    setOtp(otp);
-    console.log('otp', otp)
-  };
+  // const handleOtpChange = (otp: string) => {
+  //   setOtp(otp);
+  //   console.log('otp', otp)
+  // };
 
-  const handleInputTextChange = (text: string, index: number) => {
-    // Update the OTP state with the new value
-    const newOtp = otp.split('');
-    newOtp[index] = text;
-    handleOtpChange(newOtp.join(''));
-  };
+  // const handleInputTextChange = (text: string, index: number) => {
+  //   // Update the OTP state with the new value
+  //   const newOtp = otp.split('');
+  //   newOtp[index] = text;
+  //   handleOtpChange(newOtp.join(''));
+  // };
+
+
+
 
 
   // function to verify otp
 
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = 'https://taleteller.onrender.com';
 
   const handleVerify = () => {
-    if (otp.toString().length === 6) {
+    console.log('otp',otp);
+   
+    if (otp.length === 6) {
       navigation.navigate("Name1")
     }
     else {
@@ -82,110 +88,34 @@ const Otpverification = (props: any) => {
     >
 
 
-      {/* <TextInput
-        style={[styles.otpverificationChild, styles.otpverificationLayout]}
-        keyboardType="numeric"
-        maxLength={6}
-        onChangeText={handleOtpChange}
-        value={otp}
-      />
-      <TextInput
-        style={[styles.otpverificationItem, styles.otpverificationLayout]}
-        keyboardType="numeric"
-        maxLength={6}
-        onChangeText={handleOtpChange}
-        value={otp}
-      />
-      <TextInput
-        style={[styles.otpverificationInner, styles.otpverificationLayout]}
-        keyboardType="numeric"
-        maxLength={6}
-        onChangeText={handleOtpChange}
-        value={otp}
-      />
-      <TextInput 
-        style={[styles.rectangleView, styles.otpverificationLayout]} 
-        keyboardType="numeric"
-        maxLength={6}
-        onChangeText={handleOtpChange}
-        value={otp}
-        /> */}
+    
 
 
-      {/* 
+  
+
+
+
+
 <View style={styles.otpverificationLayout}>
-      <OtpInput
-        value={otp[0]}
-        onChange={(value:any) => handleOtpInputChange(0, value)}
-        inputStyle={styles.otpverificationChild}
-        renderInput={(props) => <input {...props} />}
-      />
-      <OtpInput
-        value={otp[1]}
-        onChange={(value:any) => handleOtpInputChange(1, value)}
-        inputStyle={styles.otpverificationItem}
-        renderInput={(props) => <input {...props} />}
-      />
-      <OtpInput
-        value={otp[2]}
-        onChange={(value:any) => handleOtpInputChange(2, value)}
-        inputStyle={styles.otpverificationInner}
-        renderInput={(props) => <input {...props} />}
-      />
-      <OtpInput
-        value={otp[3]}
-        onChange={(value:any) => handleOtpInputChange(3, value)}
-        inputStyle={styles.rectangleView} 
-        renderInput={(props) => <input {...props} />}
-      />
-    </View> */}
+        <OtpInputs
+        // style={{}}
+          handleChange={(code: string): void =>{ 
+            console.log(code)
+            // if(code && code.length === 6)
+            // {
+              setOtp(code);
+            // }
+            
+          }}
+          numberOfInputs={6} 
+          autofillFromClipboard={false}  
+          inputStyles={[
+            styles.underlineStyleBase,
+            
+          ]}      />
+      </View>
 
 
-      <TextInput
-        style={[styles.otpverificationChild, styles.otpverificationLayout]}
-        value={otp[0]}
-        onChangeText={(text) => handleInputTextChange(text, 0)}
-        keyboardType="numeric"
-        maxLength={1}
-        autoFocus={true}
-      />
-      <TextInput
-        style={[styles.otpverificationItem, styles.otpverificationLayout]}
-        value={otp[1]}
-        onChangeText={(text) => handleInputTextChange(text, 1)}
-        keyboardType="numeric"
-        maxLength={1}
-      />
-      <TextInput
-        style={[styles.otpverificationInner, styles.otpverificationLayout]}
-        value={otp[2]}
-        onChangeText={(text) => handleInputTextChange(text, 2)}
-        keyboardType="numeric"
-        maxLength={1}
-      />
-      <TextInput
-        style={[styles.rectangleView, styles.otpverificationLayout]}
-        value={otp[3]}
-        onChangeText={(text) => handleInputTextChange(text, 3)}
-        keyboardType="numeric"
-        maxLength={1}
-      />
-
-      <TextInput
-        style={[styles.otpField4, styles.otpverificationLayout]}
-        value={otp[4]}
-        onChangeText={(text) => handleInputTextChange(text, 4)}
-        keyboardType="numeric"
-        maxLength={1}
-      />
-
-      <TextInput
-        style={[styles.otpField5, styles.otpverificationLayout]}
-        value={otp[5]}
-        onChangeText={(text) => handleInputTextChange(text, 5)}
-        keyboardType="numeric"
-        maxLength={1}
-      />
 
 
 
@@ -201,17 +131,17 @@ const Otpverification = (props: any) => {
 `}</Text>
 </Text>
 
-        <Pressable  
+        <TouchableOpacity  
         onPress={() =>{
           verifyPhoneNumber(number);
         }}
         >
           <Text style={[styles.resendOtp, styles.otpTypo,styles.dontReceiveTheContainer1, styles.textFlexBox]}>RESEND OTP</Text>
-        </Pressable>
+        </TouchableOpacity>
       
 
 
-      <Pressable
+      <TouchableOpacity
         style={styles.button}
         onPress={() => {
           handleVerify();
@@ -227,20 +157,27 @@ const Otpverification = (props: any) => {
           />
           <Text style={[styles.getOtp, styles.otpTypo]}>Continue</Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
+
       <Text style={[styles.text, styles.otpTypo]}>{number}</Text>
     </LinearGradient>
   );
 
 };
 
+
+
+
+
 const styles = StyleSheet.create({
   otpverificationLayout: {
     height: 54,
     width: 50,
-    backgroundColor: Color.white,
+    // backgroundColor: Color.white,
     borderRadius: Border.br_3xs,
     top: 341,
+    justifyContent : "space-between",
+    marginLeft: 15,
     position: "absolute",
   },
   otpFlexBox: {
@@ -289,6 +226,19 @@ const styles = StyleSheet.create({
   otpField5: {
     left: 336,
   },
+
+  underlineStyleBase: {
+    width: 50,
+    height: 50,
+    borderWidth: 1,
+    borderRadius: 12,
+    textAlign: 'center',
+    borderColor: 'white',
+    marginHorizontal:5,
+    color:"white",
+  },
+
+
 
   vectorParent: {
     top: 700,

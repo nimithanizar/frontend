@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from 'axios';
-import { StyleSheet, TextInput, View, Text, Pressable, Image, Alert } from "react-native";
+import { KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, StyleSheet, TextInput, View, Text, Image, Alert, ScrollView, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from 'react';
@@ -12,7 +12,7 @@ const Otpscreen = () => {
 
   const [number, setNumber] = useState('');
   //const [response,setResponse] = useState({});
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = 'https://taleteller.onrender.com';
   //const to: string = '8086777542';
 
 
@@ -33,6 +33,7 @@ const Otpscreen = () => {
     if (number.trim().length === 0 || number.length !== 10) {
       Alert.alert('Enter Valid Phone Number');
     }
+    else{
     console.log('number', number);
     try {
       await AsyncStorage.setItem(
@@ -41,6 +42,7 @@ const Otpscreen = () => {
       );
       verifyPhoneNumber(number)
         .then(response => {
+
           navigation.navigate("Otpverification", number);
         })
         .catch(error => {
@@ -58,71 +60,79 @@ const Otpscreen = () => {
     } catch (error) {
       // Error saving data
     }
+  }
   };
 
 
 
   return (
-    <LinearGradient
-      style={styles.otpscreen}
-      locations={[0, 1]}
-      colors={["#260768", "#941097"]}
-      useAngle={true}
-      angle={180}
-    >
-
-      <Pressable
-        style={styles.button}
-        onPress={() => storeNumber()}
+    <ScrollView>
+      <LinearGradient
+        style={styles.otpscreen}
+        locations={[0, 1]}
+        colors={["#260768", "#941097"]}
+        useAngle={true}
+        angle={180}
       >
+        <KeyboardAvoidingView style={styles.container} behavior="height">
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => storeNumber()}
+          >
 
-        <View style={styles.rectangleParent}>
-          <LinearGradient
-            style={styles.groupChild}
-            locations={[0, 1]}
-            colors={["#ff8a01", "rgba(255, 138, 1, 0)"]}
-            useAngle={true}
-            angle={180}
+            <View style={styles.rectangleParent}>
+              <LinearGradient
+                style={styles.groupChild}
+                locations={[0, 1]}
+                colors={["#ff8a01", "rgba(255, 138, 1, 0)"]}
+                useAngle={true}
+                angle={180}
+              />
+
+              <Text style={[styles.getOtp, styles.otpFlexBox]}>Get OTP</Text>
+
+
+            </View>
+          </TouchableOpacity>
+          <Image
+            style={styles.image1Icon}
+            resizeMode="cover"
+            source={require("../assets/image-1.png")}
+          />
+          <Text style={[styles.otpVerification, styles.otpFlexBox]}>
+            <Text style={styles.otp}>{`otp `}</Text>Verification
+          </Text>
+          <Text
+            style={[styles.weWillSend, styles.weWillSendTypo]}
+          >{`We will send you an One Time Password
+           on this mobile number`}</Text>
+          <Text style={[styles.enterMobileNumber, styles.weWillSendTypo]}>
+            Enter Mobile Number
+          </Text>
+          <View style={[styles.otpscreenChild, styles.otpscreenShadowBox]} />
+
+          <TextInput
+            style={{ height: 45, left: 130, top: 620, width: 225, backgroundColor: 'white' }}
+            onChangeText={e => setNumber(e)}
+            value={number}
+            inputMode="numeric"
           />
 
-          <Text style={[styles.getOtp, styles.otpFlexBox]}>Get OTP</Text>
+          <View style={[styles.otpscreenItem, styles.otpscreenShadowBox]} />
+          {/* <Text style={[styles.text, styles.textTypo]}>8802768985</Text> */}
 
+          <Text style={[styles.text1, styles.textTypo]}>{`+91 `}</Text>
+        </KeyboardAvoidingView>
+      </LinearGradient>
+    </ScrollView>
 
-        </View>
-      </Pressable>
-      <Image
-        style={styles.image1Icon}
-        resizeMode="cover"
-        source={require("../assets/image-1.png")}
-      />
-      <Text style={[styles.otpVerification, styles.otpFlexBox]}>
-        <Text style={styles.otp}>{`otp `}</Text>Verification
-      </Text>
-      <Text
-        style={[styles.weWillSend, styles.weWillSendTypo]}
-      >{`We will send you an One Time Password
-           on this mobile number`}</Text>
-      <Text style={[styles.enterMobileNumber, styles.weWillSendTypo]}>
-        Enter Mobile Number
-      </Text>
-      <View style={[styles.otpscreenChild, styles.otpscreenShadowBox]} />
-
-      <TextInput
-        style={{ height: 45, left: 130, top: 620, width: 225, backgroundColor: 'white' }}
-        onChangeText={e => setNumber(e)}
-        value={number}
-        inputMode="numeric"
-      />
-
-      <View style={[styles.otpscreenItem, styles.otpscreenShadowBox]} />
-      {/* <Text style={[styles.text, styles.textTypo]}>8802768985</Text> */}
-
-      <Text style={[styles.text1, styles.textTypo]}>{`+91 `}</Text>
-    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   otpFlexBox: {
     textAlign: "left",
     color: Color.white,

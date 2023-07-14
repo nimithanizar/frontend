@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, Pressable, View, Text } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { FontSize, FontFamily, Color } from "./GlobalStyles";
@@ -15,7 +15,7 @@ const NightMode = () => {
       useAngle={true}
       angle={180}
     >
-      <Pressable
+      <TouchableOpacity
         style={styles.wrapper}
         onPress={() => navigation.navigate("Settings")}
       >
@@ -24,7 +24,7 @@ const NightMode = () => {
           resizeMode="cover"
           source={require("../assets/group-778.png")}
         />
-      </Pressable>
+      </TouchableOpacity>
       <View style={styles.image3Parent}>
         <Image
           style={styles.image3Icon}

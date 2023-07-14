@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from 'axios';
-import { Image, StyleSheet, ScrollView, Text, Pressable, View } from "react-native";
+import { Image, StyleSheet, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontFamily, FontSize, Border } from "./GlobalStyles";
@@ -9,7 +9,7 @@ import { useState } from 'react';
 import Typewriter from 'react-native-typewriter';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottleView from 'lottie-react-native';
-import SoundPlayer from 'react-native-sound-player';
+
 import Sound from 'react-native-sound';
 
 
@@ -24,6 +24,7 @@ const Homepage = (props: any) => {
   const [result, setResult] = useState<{ order: number, paragraph: string, audioString: string, imageLink: string }[]>([]);
   const [isLoading, setisLoading] = useState(true);
   const [isEndOfStory, setisEndOfStory] = useState(false)
+  const [audio, setaudio] = useState("")
   const [currentPlaying, setcurrentPlaying] = useState<{ order: number, paragraph: string, audioString: string, imageLink: string }>({
     order: -1,
     paragraph: "",
@@ -51,7 +52,7 @@ const Homepage = (props: any) => {
 
 
   useEffect(() => {
-    console.log('isEndOfStory',isEndOfStory);
+    console.log('isEndOfStory', isEndOfStory);
   }, []);
 
 
@@ -75,6 +76,8 @@ const Homepage = (props: any) => {
       playSound();
     }
   }, [currentPlaying]);
+
+
 
 
 
@@ -144,7 +147,7 @@ const Homepage = (props: any) => {
           },
         },
       );
-     
+
       // const response = await axios.post(
       //   'https://chatgpt-api6.p.rapidapi.com/standard-gpt',
       //   { role: 'user',
@@ -185,7 +188,7 @@ const Homepage = (props: any) => {
             audioString: converted,
             imageLink: image,
           }
-          // setResult(prev => [...prev, resultItem]);
+        
           tempArray.push(resultItem)
 
         } catch (error) {
@@ -216,7 +219,7 @@ const Homepage = (props: any) => {
     // console.log("sentence inside fn ", senteince)
 
     try {
-      const response = await axios.post('http://localhost:3000/converter', {
+      const response = await axios.post('https://taleteller.onrender.com/converter', {
         text: paragraph,
         type: 'text'
       })
@@ -242,7 +245,7 @@ const Homepage = (props: any) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          key: "oGPm6j2FWObeZo7DZMJJD0gSLeeZxBgjgeVG2crAhb5A7vJjsg3w2RnyxzzN",
+          key: "CZuSG0YI8z8s7xBnGpZSHnZxH8DFVgSCmQJUwzaSDzNW0BWoaVR6Ri0b0t0Y",
           prompt: "Draw a cartoon based on next sentences." + paragraph,
           negative_prompt: null,
           width: "512",
@@ -286,7 +289,7 @@ const Homepage = (props: any) => {
     //   console.log('Cannot play the sound file', e);
     // }
 
-    const sound = new Sound(`http://localhost:3000/${currentPlaying.audioString}`, null, (error) => {
+    const sound = new Sound(`https://taleteller.onrender.com/${currentPlaying.audioString}`, null, (error) => {
       console.log("audio ==", currentPlaying.audioString)
       if (error) {
         console.log('Error loading sound:', error);
@@ -300,7 +303,7 @@ const Homepage = (props: any) => {
               let order = ++currentPlaying.order;
               setcurrentPlaying(result[order]);
             }
-            if(currentPlaying.order >= result.length) {
+            if (currentPlaying.order >= result.length) {
               setisEndOfStory(true)
             }
 
@@ -312,6 +315,7 @@ const Homepage = (props: any) => {
       }
     });
   };
+
 
 
 
@@ -357,7 +361,7 @@ const Homepage = (props: any) => {
               {on === "false" ? (
                 <>
 
-                
+
 
                   {currentPlaying.imageLink && currentPlaying.imageLink !== undefined && currentPlaying.imageLink !== "" ? (
                     <Image
@@ -367,6 +371,9 @@ const Homepage = (props: any) => {
                       source={{ uri: currentPlaying.imageLink[0] }}
                     />
                   ) : null}
+
+
+                
 
 
                   <ScrollView style={{
@@ -386,7 +393,7 @@ const Homepage = (props: any) => {
                     </Typewriter>
                   </ScrollView>
 
-                  <Pressable
+                  <TouchableOpacity
                     style={styles.wrapper}
                     onPress={() => navigation.navigate("Prompt")}
                   >
@@ -395,26 +402,26 @@ const Homepage = (props: any) => {
                       resizeMode="cover"
                       source={require("../assets/group-778.png")}
                     />
-                  </Pressable>
+                  </TouchableOpacity>
 
-                  {/* <Pressable onPress={() => askQuestion()} style={[styles.rectangleParent, styles.groupChildLayout]}>
+                  {/* <TouchableOpacity onPress={() => askQuestion()} style={[styles.rectangleParent, styles.groupChildLayout]}>
                   <View style={[styles.groupChild, styles.groupChildLayout]} />
                   <Image
                     style={styles.playCircleFilled}
                     resizeMode="cover"
                     source={require("../assets/play-circle-filled.png")} />
                   <Text style={[styles.play, styles.playFlexBox]}>PLAY</Text>
-                </Pressable> */}
+                </TouchableOpacity> */}
 
 
-                  {/* <Pressable onPress={() =>playSound()} style={[styles.rectangleParent1, styles.groupChildLayout]}>
+                  {/* <TouchableOpacity onPress={() =>playSound()} style={[styles.rectangleParent1, styles.groupChildLayout]}>
                   <View style={[styles.groupChild, styles.groupChildLayout]} />
                   <Image
                     style={styles.playCircleFilled}
                     resizeMode="cover"
                     source={require("../assets/play-circle-filled.png")} />
                   <Text style={[styles.play, styles.playFlexBox]}>audio</Text>
-                </Pressable> */}
+                </TouchableOpacity> */}
                 </>
               ) : (
 
@@ -434,13 +441,13 @@ const Homepage = (props: any) => {
                   {/* ) : null} */}
 
 
-               
+
                 </>
               )}
             </>
           }
           <>
-            {result && isEndOfStory &&(
+            {result && isEndOfStory && (
 
               <View style={{
                 // top: 60,
@@ -452,24 +459,21 @@ const Homepage = (props: any) => {
                 paddingLeft: 15,
               }}>
 
-                <Pressable onPress={() => setcurrentPlaying(result[0])} style={[styles.rectangleParent1, styles.groupChildLayout]}>
+                {/* <TouchableOpacity onPress={() => setcurrentPlaying(result[0])} style={[styles.rectangleParent1, styles.groupChildLayout]}>
                   <View style={[styles.groupChild, styles.groupChildLayout]} />
-                  {/* <Image
-                    style={styles.playCircleFilled}
-                    resizeMode="cover"
-                    source={require("../assets/play-circle-filled.png")} /> */}
+            
                   <Text style={[styles.play, styles.playFlexBox]}>RePLAY</Text>
-                </Pressable>
+                </TouchableOpacity> */}
 
 
-                <Pressable onPress={() => navigation.navigate("Prompt")} style={[styles.rectangleParent, styles.groupChildLayout]}>
+                <TouchableOpacity onPress={() => navigation.navigate("Prompt")} style={[styles.rectangleParent, styles.groupChildLayout]}>
                   <View style={[styles.groupChild, styles.groupChildLayout]} />
                   {/* <Image
                     style={styles.playCircleFilled}
                     resizeMode="cover"
                     source={require("../assets/play-circle-filled.png")} /> */}
                   <Text style={[styles.play, styles.playFlexBox]}>HOME</Text>
-                </Pressable>
+                </TouchableOpacity>
 
               </View>
 
@@ -562,12 +566,12 @@ const styles = StyleSheet.create({
     color: Color.white,
   },
   rectangleParent: {
-    top: 400,
+    top: 300,
     left: 100,
   },
 
   rectangleParent1: {
-    top: 500,
+    top: 400,
     left: 100,
   },
 

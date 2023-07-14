@@ -18,7 +18,7 @@ import Otpscreen from "./screens/Otpscreen";
 import Welcome1 from "./screens/Welcome1";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);

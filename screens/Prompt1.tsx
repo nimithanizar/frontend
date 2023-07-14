@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, TextInput,TouchableOpacity ,View, Image, Pressable, Text } from "react-native";
+import { StyleSheet, TextInput,TouchableOpacity ,View, Image, Text } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from 'react';
@@ -50,7 +50,7 @@ const Prompt1 = () => {
             onChangeText={setText}
             value={text}
     />
-        <Pressable
+        <TouchableOpacity
           style={styles.emailSend}
           onPress={() => navigation.navigate("Homepage",text)}
         >
@@ -59,7 +59,7 @@ const Prompt1 = () => {
             resizeMode="cover"
             source={require("../assets/email-send.png")}
           />
-        </Pressable>
+        </TouchableOpacity>
 
        
 
@@ -83,7 +83,7 @@ const Prompt1 = () => {
           </TouchableOpacity>
 
         <Text style={[styles.newStory, styles.newStoryTypo]}>New story</Text>
-        <Pressable
+        <TouchableOpacity
           style={styles.iconSetting2}
           onPress={() => navigation.navigate("Settings")}
         >
@@ -92,11 +92,13 @@ const Prompt1 = () => {
             resizeMode="cover"
             source={require("../assets/-icon-setting-2.png")}
           />
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </LinearGradient>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   groupChildLayout: {

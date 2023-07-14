@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, StyleSheet, View, Image, Pressable } from "react-native";
+import { Text, StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, FontSize, Color, Border } from "./GlobalStyles";
@@ -12,7 +12,7 @@ const Settings = () => {
   const [name, setName] = useState('');
   const [on, setOn] = useState(false);
   let isOn = false
-  // const [off, setOff] = useState(true);
+ 
 
   useEffect(()=>{
     retrieveData();
@@ -39,7 +39,7 @@ const Settings = () => {
       // Error saving data
     }
   };
-
+ 
 
 
   const retrieveData = async () => {
@@ -69,7 +69,7 @@ const Settings = () => {
       <Text style={styles.katerina}>{name}</Text>
       <View style={styles.settingsChild} />
       <Text style={[styles.content, styles.contentTypo]}>CONTENT</Text>
-      <Pressable
+      <TouchableOpacity
         style={styles.settingsInner}
         onPress={() => navigation.navigate("Profile")}
       >
@@ -84,8 +84,8 @@ const Settings = () => {
             source={require("../assets/vector.png")}
           />
         </View>
-      </Pressable>
-      <Pressable
+      </TouchableOpacity>
+      <TouchableOpacity
         style={styles.logoutParent}
         onPress={() => navigation.navigate("Otpscreen")}
       >
@@ -95,8 +95,8 @@ const Settings = () => {
           resizeMode="cover"
           source={require("../assets/vector1.png")}
         />
-      </Pressable>
-      <Pressable
+      </TouchableOpacity>
+      <TouchableOpacity
         style={styles.nightModeParent}
         onPress={() => navigation.navigate("NightMode")}
       >
@@ -126,7 +126,7 @@ const Settings = () => {
               borderRadius: 20,
             }}
       />
-      </Pressable>
+      </TouchableOpacity>
 {/*       
       <Image
         style={styles.settingsItem}
@@ -134,7 +134,7 @@ const Settings = () => {
         source={require("../assets/group-778.png")}
       /> */}
 
-<Pressable
+<TouchableOpacity
         style={styles.wrapper}
         onPress={() => navigation.navigate("Prompt")}
       >
@@ -143,7 +143,7 @@ const Settings = () => {
           resizeMode="cover"
           source={require("../assets/group-778.png")}
         />
-      </Pressable> 
+      </TouchableOpacity> 
       <Image
         style={styles.groupIcon}
         resizeMode="cover"

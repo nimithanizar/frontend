@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View, Pressable } from "react-native";
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { FontSize, FontFamily, Color, Border } from "./GlobalStyles";
@@ -30,7 +30,7 @@ fairy tales `}</Text>
         <Text style={styles.withYourChid}>with your child :)</Text>
       </Text>
 
-      <Pressable
+      <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate("Otpscreen")}
       >
@@ -44,7 +44,7 @@ fairy tales `}</Text>
           />
           <Text style={[styles.getOtp, styles.getOtpFlexBox]}>Get Started</Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     </LinearGradient>
   </>
   );

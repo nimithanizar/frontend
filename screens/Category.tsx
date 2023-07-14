@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { Color, FontSize, Border, FontFamily } from "./GlobalStyles";
@@ -17,7 +17,7 @@ const Category = () => {
     >
       <View style={styles.categoryChild} />
       <Text style={[styles.categories, styles.fantacyTypo]}>Categories</Text>
-      <Pressable
+      <TouchableOpacity
         style={[styles.rectangleParent, styles.rectangleLayout]}
         onPress={() => navigation.navigate("Prompt")}
       >
@@ -30,8 +30,8 @@ const Category = () => {
         <View style={[styles.fantacyWrapper, styles.wrapperPosition]}>
           <Text style={[styles.fantacy, styles.fantacyPosition]}>Fantacy</Text>
         </View>
-      </Pressable>
-      <Pressable
+      </TouchableOpacity>
+      <TouchableOpacity
         style={[styles.rectangleGroup, styles.groupPosition]}
         onPress={() => navigation.navigate("Prompt")}
       >
@@ -46,8 +46,8 @@ const Category = () => {
             Fairy Tales
           </Text>
         </View>
-      </Pressable>
-      <Pressable
+      </TouchableOpacity>
+      <TouchableOpacity
         style={[styles.rectangleContainer, styles.rectangleLayout]}
         onPress={() => navigation.navigate("Prompt")}
       >
@@ -60,9 +60,9 @@ const Category = () => {
         <View style={[styles.mysteryWrapper, styles.wrapperPosition]}>
           <Text style={[styles.fantacy, styles.fantacyPosition]}>Mystery</Text>
         </View>
-      </Pressable>
-      <Pressable
-        style={[styles.groupPressable, styles.groupPosition]}
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.groupTouchableOpacity, styles.groupPosition]}
         onPress={() => navigation.navigate("Prompt")}
       >
         <Image
@@ -76,7 +76,7 @@ const Category = () => {
             Moral Stories
           </Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     left: 24,
     width: 154,
   },
-  groupPressable: {
+  groupTouchableOpacity: {
     left: 226,
     width: 194,
     top: 507,

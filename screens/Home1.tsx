@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, StyleSheet, Image, View, Pressable } from "react-native";
+import { Text, StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { useState ,useEffect} from 'react';
@@ -16,6 +16,9 @@ const Home1 = (props: any) => {
  useEffect(() => {
   setName(props.route.params)
  },[]);
+
+
+
 
   return (
     <LinearGradient
@@ -44,7 +47,7 @@ const Home1 = (props: any) => {
       <Text style={[styles.letsHaveSome, styles.getOtpFlexBox]}>
         Let's have some fun and explore together!
       </Text>
-      <Pressable
+      <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate("Prompt")}
       >
@@ -58,10 +61,11 @@ const Home1 = (props: any) => {
           />
           <Text style={[styles.getOtp, styles.getOtpFlexBox]}>Continue</Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     </LinearGradient>
   );
 };
+
 
 const styles = StyleSheet.create({
   getOtpFlexBox: {
